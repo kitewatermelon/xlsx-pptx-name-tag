@@ -5,6 +5,8 @@ from pptx.dml.color import RGBColor
 from pptx.enum.dml import MSO_THEME_COLOR
 
 import copy
+import os
+import re
 from pptx.dml.color import RGBColor
 
 def convert_scheme_color_to_rgb(theme, scheme_color):
@@ -38,22 +40,42 @@ def read_pptx(ppt):
 
     return slide_contents
 
-def copy_slide(prs):
+def copy_slide_from_external_prs(prs):
     source_slide = prs.slides[0]
     slide_layout = prs.slide_layouts[6]
-    copy_slide = prs.slides.add_slide(slide_layout)
-    
-    for shape in source_slide.shapes:
-        el = shape.element
-        newel = copy.deepcopy(el)
-        copy_slide.shapes._spTree.insert_element_before(newel,'p:extLst')
+    curr_slide = prs.slides.add_slide(slide_layout)
+
+    imgDict = {}
+
+    for shp in source_slide.shapes:
+
+        if re.search(r'그림 \d+', shp.name):
+            # save image
+            with open(shp.name+'.jpg', 'wb') as f:
+                f.write(shp.image.blob)
+
+            imgDict[shp.name+'.jpg'] = [shp.left, shp.top, shp.width, shp.height]
+            
+        else:
+            el = shp.element
+            newel = copy.deepcopy(el)
+
+            curr_slide.shapes._spTree.insert_element_before(newel, 'p:extLst')
+
+    for k, v in imgDict.items():
+        # print(v[0], v[1], v[2], v[3])
+        curr_slide.shapes.add_picture(k, v[0], v[1], v[2], v[3])
+        os.remove(k)
+        
     return prs
+
+
 
 csv = pd.read_csv("/Users/kite/Desktop/2024 1팀/겨울수련회/1팀 겨울 리트릿.csv", encoding='euc-kr')
 ppt = Presentation("/Users/kite/Desktop/2024 1팀/겨울수련회/ppt_sample.pptx")
 
 for i in range(len(csv)-1):
-    ppt = copy_slide(ppt)
+    ppt = copy_slide_from_external_prs(ppt)
     
 slides = read_pptx(ppt)
 
