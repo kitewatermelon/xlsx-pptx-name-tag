@@ -66,8 +66,6 @@ for slide_index, slide_content in enumerate(slides):
                     # 폰트 정보를 가져옴
                     font_style = shape.text_frame.paragraphs[0].runs[0].font  
                     shape.text = slide_text  # 기존 텍스트를 변경
-                    print(font_style.color)
-                    # 변경된 텍스트의 폰트를 설정
                     for paragraph in shape.text_frame.paragraphs:
                         for run in paragraph.runs:
                             run.font.bold = font_style.bold
