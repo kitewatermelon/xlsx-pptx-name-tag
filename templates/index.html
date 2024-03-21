@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload Example</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet"> 
+    <title>명찰 제작을 쉽게</title>
 </head>
 <body>
-    <form action="http://localhost:8000/upload" method="post" enctype="multipart/form-data">
-        <label for="excel_file">Upload Excel File:</label><br>
-        <input type="file" id="excel_file" name="excel_file"><br><br>
-        <label for="ppt_file">Upload PowerPoint File:</label><br>
-        <input type="file" id="ppt_file" name="ppt_file"><br><br>
-        <input type="submit" value="Upload">
-    </form>
+    <h1>명찰 제작을 쉽게</h1>
+    <p>* 이 웹사이트는 사용자의 데이터를 일체 수집하지 않습니다.</p>
+    <hr>
+    <div id='page'>
+        <form action="http://localhost:8000/upload" method="post" enctype="multipart/form-data">
+            <div id='excel_zone' class='zone'>
+                <label for="excel_file">명단이 적힌 엑셀 파일을 선택해주세요. (.csv, .xlsx만 가능)</label>
+                <input class='input_file' type="file" id="excel_file" name="excel_file" accept=".csv, .xlsx" >
+            </div>
+            <div id='pptx_zone' class='zone'>
+                <label for="pptx_file">샘플 ppt 파일을 선택해주세요. (.pptx만 가능)</label>
+                <input class='input_file' type="file" id="pptx_file" name="pptx_file" accept='.pptx'>
+            </div>
+
+            <input id='submit_button' type="submit" value="명찰 만들기!">
+        </form>
+    </div>
 </body>
+<footer>
+    <hr>
+    <p>creater : park yeon su <br>
+        contact : parkite576@gmail.com</p>
+</footer>
 </html>
