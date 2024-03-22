@@ -3,8 +3,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 from nameplate import make_nameplate
+from starlette.background import BackgroundTasks
+
 import time
 import os
+
+
 UPLOAD_DIR = "./files"
 
 router = APIRouter(
@@ -41,9 +45,17 @@ async def upload_files(excel_file: UploadFile = File(...), pptx_file: UploadFile
     return RedirectResponse(url=f'/process?timestamp={timestamp}&excel_filename={excel_file.filename}&pptx_filename={pptx_file.filename}')
 
 @app.post("/process")
-async def process_files(timestamp: str, excel_filename: str , pptx_filename: str):
+async def process_files(timestamp: str, excel_filename: str , pptx_filename: str, bg_tasks: BackgroundTasks):
 
-    ppt = make_nameplate(f"{UPLOAD_DIR}/{excel_filename}", f"{UPLOAD_DIR}/{pptx_filename}")
+    ppt = make_nameplate(f"{UPLOAD_DIR}/{timestamp+excel_filename}", f"{UPLOAD_DIR}/{timestamp+pptx_filename}")
     ppt_path = os.path.join(UPLOAD_DIR, f"{timestamp}_nameplate.pptx")
     ppt.save(ppt_path)
-    return FileResponse(path=ppt_path, filename=f"{timestamp}_nameplate.pptx")
+    
+    os.remove(f"{UPLOAD_DIR}/{timestamp + excel_filename}")
+    os.remove(f"{UPLOAD_DIR}/{timestamp + pptx_filename}")
+    
+    bg_tasks.add_task(os.remove, ppt_path)
+
+    return FileResponse(path=ppt_path, 
+                        filename=f"{timestamp}_nameplate.pptx",
+                        )
