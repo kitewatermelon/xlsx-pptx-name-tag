@@ -1,5 +1,7 @@
 import pandas as pd
 from pptx import Presentation
+from pptx.enum.text import PP_ALIGN
+
 import copy
 import os
 import re
@@ -67,12 +69,18 @@ def make_nameplate(excel_url, pptx_url):
                     if hasattr(shape, "text") and shape.text == content:
                         font_style = shape.text_frame.paragraphs[0].runs[0].font  
                         shape.text = slide_text
+                        
+                        # 텍스트 정렬 설정
                         for paragraph in shape.text_frame.paragraphs:
+                            paragraph.alignment = PP_ALIGN.CENTER  # 가운데 정렬
+                            
+                            # 폰트 설정
                             for run in paragraph.runs:
                                 run.font.bold = font_style.bold
                                 run.font.italic = font_style.italic
                                 run.font.size = font_style.size
                                 run.font.name = font_style.name
+
                 # print(f"Changed content '{content}' in slide {slide_index + 1} to '{slide_text}'")
 
     return ppt

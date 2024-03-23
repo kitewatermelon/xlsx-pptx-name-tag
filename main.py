@@ -8,9 +8,6 @@ from starlette.background import BackgroundTasks
 import time
 import os
 
-
-UPLOAD_DIR = "./files"
-
 router = APIRouter(
     prefix="/nameplate",
     tags=['nameplate'],
@@ -24,7 +21,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_all_by_user(request: Request):
-    return templates.TemplateResponse("index.html", {"request":request})
+    return templates.TemplateResponse("home.html", {"request":request})
+
+@app.get("/help",response_class=HTMLResponse)
+async def get_help(request: Request):
+    return templates.TemplateResponse("help.html", {"request":request})
 
 UPLOAD_DIR = "./files"
 

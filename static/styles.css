@@ -97,3 +97,12 @@ footer{
 }
 
 /* ========= help.html  ========= */
+.image, .help_list {
+    margin: 2vh 0;
+}
+.sample_download_button {
+    margin: 0 1vw ;
+}
+.help_list {
+    font-size: 3vh;
+}

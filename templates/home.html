@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div id='main_page'>
+    <a href='/help'>어떻게 사용하나요?</a>
+    <form action="http://localhost:8000/upload" method="post" id='file_form' enctype="multipart/form-data">
+        <div class='make_row'>
+            <h1>명단 : </h1>
+            <div id='excel_zone' class='zone'>
+                <label for="excel_file">명단이 적힌 엑셀 파일을 선택해주세요. (.csv, .xlsx만 가능)</label>
+                <input class='input_file' type="file" id="excel_file" name="excel_file" accept=".csv, .xlsx" required onchange="checkFormValidity()">
+            </div>
+        </div>
+
+        <div class='make_row'>
+
+        <h1>샘플 : </h1>
+            <div id='pptx_zone' class='zone'>
+                <label for="pptx_file">샘플 ppt 파일을 선택해주세요. (.pptx만 가능)</label>
+                <input class='input_file' type="file" id="pptx_file" name="pptx_file" accept='.pptx' required onchange="checkFormValidity()">
+            </div>
+        </div>
+        <input id="submit_button" type="submit" value="명찰 만들기!" disabled>
+    </form>
+</div>
+{% endblock %}

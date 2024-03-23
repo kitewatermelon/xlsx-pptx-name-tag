@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div id='main_page'>
+    <a href='/'>사용해볼까요?</a>
+    <div>
+        <button class='sample_download_button' onclick="downloadFile('pptx')">샘플용 PPTX 파일 다운로드</button>
+        <button class='sample_download_button' onclick="downloadFile('excel')">샘플용 Excel 파일 다운로드</button>
+    </div>
+    <ul>
+        <li class='help_list'><a>pptx 명찰 샘플 준비하고 명단(csv, xlsx)을 준비해주세요. 이때 명단의 컬럼명과 ppt의 요소명을 같게 해주세요. </a></li>
+        <li class='help_list'><a>(화면 예시에서는 이름, 조, 역할을 같게 했습니다.)</a></li>
+    </ul>
+    <h3>샘플 예시</h3>
+    <img class='image' src='/static/help1.png' width='1000vw' hight='1000vh'/>
+    <h3>파일 선택하는 법</h3>
+    <img class='image' src='/static/help.gif' width='1000vw' hight='1000vh'/>
+
+</div>
+    <script>
+        function downloadFile(type) {
+            // 파일 다운로드를 위한 URL 설정
+            let url;
+            if (type === 'pptx') {
+                url = '/static/샘플용ppt.pptx';  // PPTX 파일의 경로
+            } else if (type === 'excel') {
+                url = '/static/샘플용excel.xlsx';  // Excel 파일의 경로
+            }
+
+            // 링크 생성 및 클릭하여 파일 다운로드
+            let link = document.createElement('a');
+            link.href = url;
+            link.download = url.split('/').pop();  // 파일 이름 설정
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+
+{% endblock %}
