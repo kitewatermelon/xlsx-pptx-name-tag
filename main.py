@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, Request, UploadFile, File
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from nameplate import make_nameplate
 from starlette.background import BackgroundTasks
@@ -46,16 +46,23 @@ async def upload_files(excel_file: UploadFile = File(...), pptx_file: UploadFile
 
 @app.post("/process")
 async def process_files(timestamp: str, excel_filename: str , pptx_filename: str, bg_tasks: BackgroundTasks):
+    try:
+        ppt = make_nameplate(f"{UPLOAD_DIR}/{timestamp+excel_filename}", f"{UPLOAD_DIR}/{timestamp+pptx_filename}")
+        ppt_path = os.path.join(UPLOAD_DIR, f"{timestamp}_nameplate.pptx")
+        ppt.save(ppt_path)
+        
+        os.remove(f"{UPLOAD_DIR}/{timestamp + excel_filename}")
+        os.remove(f"{UPLOAD_DIR}/{timestamp + pptx_filename}")
+        
+        bg_tasks.add_task(os.remove, ppt_path)
 
-    ppt = make_nameplate(f"{UPLOAD_DIR}/{timestamp+excel_filename}", f"{UPLOAD_DIR}/{timestamp+pptx_filename}")
-    ppt_path = os.path.join(UPLOAD_DIR, f"{timestamp}_nameplate.pptx")
-    ppt.save(ppt_path)
-    
-    os.remove(f"{UPLOAD_DIR}/{timestamp + excel_filename}")
-    os.remove(f"{UPLOAD_DIR}/{timestamp + pptx_filename}")
-    
-    bg_tasks.add_task(os.remove, ppt_path)
-
-    return FileResponse(path=ppt_path, 
-                        filename=f"{timestamp}_nameplate.pptx",
-                        )
+        return FileResponse(path=ppt_path, 
+                            filename=f"nameplate.pptx")
+        
+    except FileNotFoundError as e:
+        error_message = f"파일이 없습니다. 다시 시도해주세요. "
+        return JSONResponse(status_code=404, content={"error": error_message})
+    except Exception as e:
+        error_message = f"파일이 선택되지 않았습니다. 다시 시도하세요. 그래도 에러 발생 시 관리자에게 문의 주세요."
+        return JSONResponse(status_code=500, content={"error": error_message})
+ 

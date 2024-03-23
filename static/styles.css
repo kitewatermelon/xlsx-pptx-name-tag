@@ -1,3 +1,29 @@
+*{
+    font-family: Hevetica, AppleSDGothic !important;
+    margin: 0 auto;
+
+}
+/* ========= index.html  ========= */
+body {
+    height: 1vw;
+}
+#header {
+    padding-top: 10vh;
+    color: white;
+    background-color: black;
+    display: block;
+}
+#main_page{
+    height: fit-content;
+    margin-bottom: 10vh;
+    min-height: 100%;
+    border: 3vw grey solid;
+    border-radius: 1vw;
+    flex-direction: column;
+}
+a{
+    padding: 1vw;
+}
 div {
     display: flex;
     align-items: center;
@@ -8,29 +34,37 @@ form {
     flex-direction: column ;
     align-items: center;
 }
+
 h1{ 
-	text-align: center; 
+    font-size: 5vw;
 }
 p{
-    font-size: 10px;
+    font-size: 2vh;
 }
 label {
+    padding: 10px;
     text-align: center;
-    /* border: 1px black solid; */
+    width: 40vw;
+    height: 10vh;
 }   
 
 .input_file {
-    height: 150px;
-    display: none;
+    width: 40vw;
+    height: 10vh;
+    font-size: large;
+    text-align: center;
 }
 
 .zone {
-    margin-bottom: 20px;
-    border-radius: 50px;
-    width: 500px;
-    height: 150px;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+    border-radius: 1vw;
+    padding: 3px;
+    width: 40vw;
+    height: 20vh;
     text-align: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 #excel_zone {
@@ -42,11 +76,11 @@ label {
 }
 
 #submit_button {
+    margin-bottom: 2vh;
     background-color: lightgray;
-    width: 150px;
-    height: 60px;
+    width: 10vw;
+    height: 10vh;
     border-radius: 20px;
-
 }
 
 form input::file-selector-button {
@@ -56,10 +90,10 @@ form input::file-selector-button {
 footer{
     background-color: black;
     color: white;
-
-    position : absolute;
-    bottom : 0; 
-    left: 0;
+    position : relative;
+    transform: translateY(-100%);
     width: 100vmax;
-    
+    height:  10vh;
 }
+
+/* ========= help.html  ========= */

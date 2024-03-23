@@ -7,27 +7,53 @@
     <title>명찰 제작을 쉽게</title>
 </head>
 <body>
-    <h1>명찰 제작을 쉽게</h1>
-    <p>* 이 웹사이트는 사용자의 데이터를 일체 수집하지 않습니다.</p>
+    <div id='header'>
+        <h1>명찰 제작을 쉽게</h1>
+        <p>* 이 웹사이트는 사용자의 데이터를 일체 수집하지 않습니다.</p>
+    </div>
     <hr>
-    <div id='page'>
-        <form action="http://localhost:8000/upload" method="post" enctype="multipart/form-data">
-            <div id='excel_zone' class='zone'>
-                <label for="excel_file">명단이 적힌 엑셀 파일을 선택해주세요. (.csv, .xlsx만 가능)</label>
-                <input class='input_file' type="file" id="excel_file" name="excel_file" accept=".csv, .xlsx" >
-            </div>
-            <div id='pptx_zone' class='zone'>
-                <label for="pptx_file">샘플 ppt 파일을 선택해주세요. (.pptx만 가능)</label>
-                <input class='input_file' type="file" id="pptx_file" name="pptx_file" accept='.pptx'>
+    <hr>
+    <hr>
+    <hr>
+    <div id='main_page'>
+        <a href='help.html'>어떻게 사용하나요?</a>
+        <form action="http://localhost:8000/upload" method="post" id='file_form' enctype="multipart/form-data">
+            <div class='make_row'>
+                <h1>명단 : </h1>
+                <div id='excel_zone' class='zone'>
+                    <label for="excel_file">명단이 적힌 엑셀 파일을 선택해주세요. (.csv, .xlsx만 가능)</label>
+                    <input class='input_file' type="file" id="excel_file" name="excel_file" accept=".csv, .xlsx" required onchange="checkFormValidity()">
+                </div>
             </div>
 
-            <input id='submit_button' type="submit" value="명찰 만들기!">
+            <div class='make_row'>
+
+            <h1>샘플 : </h1>
+                <div id='pptx_zone' class='zone'>
+                    <label for="pptx_file">샘플 ppt 파일을 선택해주세요. (.pptx만 가능)</label>
+                    <input class='input_file' type="file" id="pptx_file" name="pptx_file" accept='.pptx' required onchange="checkFormValidity()">
+                </div>
+            </div>
+            <input id="submit_button" type="submit" value="명찰 만들기!" disabled>
         </form>
     </div>
+    <footer>
+        <hr>
+        <p>creater : park yeon su <br>
+            contact : parkite576@gmail.com</p>
+    </footer>
 </body>
-<footer>
-    <hr>
-    <p>creater : park yeon su <br>
-        contact : parkite576@gmail.com</p>
-</footer>
+<script>
+    function checkFormValidity() {
+        const form = document.getElementById('file_form');
+        
+        const submitButton = document.getElementById('submit_button');
+        
+        if (form.checkValidity()) {
+            submitButton.disabled = false;  
+        } else {
+            submitButton.disabled = true; 
+        }
+    }
+</script>
 </html>
