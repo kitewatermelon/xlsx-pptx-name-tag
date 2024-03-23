@@ -6,7 +6,7 @@
 ![img](static/help.gif)
 -----
 ### 기술 스택
-Frontend
+- Frontend
 <hr>
 <div>
   <img src="https://img.shields.io/badge/html5-E34F26?style=flat&logo=html5&logoColor=white"> 
@@ -14,7 +14,7 @@ Frontend
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black">   
 </div>
 
-Backend   
+- Backend   
 <hr>
 <img src="https://img.shields.io/badge/fastapi-009688?style=flat&logo=fastapi&logoColor=white" />
 
