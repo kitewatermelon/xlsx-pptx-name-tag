@@ -5,7 +5,9 @@
 --------
 ![img](static/help.gif)
 -----
-
+### 기술 스택
+ONLY
+<img src="https://img.shields.io/badge/fastapi-009688?style=flat&logo=fastapi&logoColor=white" />
 ### 파일 구조
 ```
 ├── cloudtype/    
