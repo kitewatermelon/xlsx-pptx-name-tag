@@ -1,4 +1,4 @@
-import './File.css';
+import './File.style';
 
 function File() {
   return (
