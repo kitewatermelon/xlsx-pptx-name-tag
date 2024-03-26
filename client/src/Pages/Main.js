@@ -1,6 +1,6 @@
 import './Main.css';
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 
 function Main() {
     const Title = styled.h1`
@@ -47,6 +47,11 @@ function Main() {
         transform: scale(1.2);
     }
     `;
+    const navigate = useNavigate();
+ 
+    const navigateToFile = () => {
+        navigate("/file");
+    };
     
     return (
         <Main>
@@ -62,7 +67,7 @@ function Main() {
                 <Step>step2</Step>                
             </ImgDiv>
         </Example>        
-        <Btn>이름표 만들기로 넘어가기</Btn>
+        <Btn onClick={navigateToFile}>이름표 만들기로 넘어가기</Btn>
     </Main>
   );
 }
