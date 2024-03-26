@@ -22,25 +22,45 @@ function Main() {
     const ExImg = styled.img`
         margin: 0 40px ;
     `
+    const ImgDiv = styled.div`
+        flex-direction: column;
+        `
+    const Step = styled.p`
+        text-align:center;
+    `
     const Btn = styled.button`
         width:442px;
         height:89px;
         border-radius: 90px; 
-        margin-top:60px;
         background-color:white;
         color:black;
         font-size:30px;
         font-weight: bold;
-        `
-
-
-  return (
-    <Main>
+        position: relative;
+        border: none;
+        cursor: pointer;
+        box-shadow: 6px 6px 6px rgba(255, 255, 255, 0.64);
+        font-weight: 700;
+        transition: 0.3s;
+    
+    &:hover {
+        transform: scale(1.2);
+    }
+    `;
+    
+    return (
+        <Main>
         <Title>이름표 제작 메커니즘</Title>
         <Example>
-            <ExImg src='../../excel_example.png' width='514px' height='479px'></ExImg>
+            <ImgDiv>
+                <ExImg src='../../excel_example.png' width='514px' height='479px'></ExImg>
+                <Step>step1</Step>
+            </ImgDiv>
             <ExImg src='../../arrow.png' width='86px' height='86px'></ExImg>
-            <ExImg src='../../ppt_example.png' width='354px' height='479px'></ExImg>
+            <ImgDiv>
+                <ExImg src='../../ppt_example.png' width='354px' height='479px'></ExImg>
+                <Step>step2</Step>                
+            </ImgDiv>
         </Example>        
         <Btn>이름표 만들기로 넘어가기</Btn>
     </Main>
